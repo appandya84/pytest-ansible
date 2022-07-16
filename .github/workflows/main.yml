@@ -4,7 +4,7 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, Version_Update ]
   pull_request:
     branches: [ master ]
 
@@ -15,8 +15,24 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [2.7, 3.6]
-        ansible-version: [v28, v29]
+#        python-version: [2.7, 3.6, 3.7, 3.8, 3.9, 3.10]
+ #       ansible-version: [v28, v29]
+        include:
+          - python-version: 3.6
+            ansible-version: v28
+          - python-version: 3.6
+            ansible-version: v29
+          - python-version: 3.7
+            ansible-version: v410
+          - python-version: 3.8
+            ansible-version: v410
+          - python-version: 3.9
+            ansible-version: v410
+          - python-version: "3.10"
+            ansible-version: v410
+          - python-version: "3.11.0-beta.4"
+            ansible-version: v410
+      fail-fast:false  
 
     steps:
     - uses: actions/checkout@v1
